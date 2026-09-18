@@ -7,6 +7,14 @@ const { count, openModal } = useWishlist()
 const isScrolled = ref(false)
 const isMobileMenuOpen = ref(false)
 
+const bgImages = [
+  '/Assets/DSC09652.avif',
+  '/Assets/DSC09689.avif',
+  '/Assets/DSC09710.avif'
+]
+const currentBgIndex = ref(0)
+let slideInterval
+
 function handleScroll() {
   isScrolled.value = window.scrollY > 40
 }
@@ -17,8 +25,17 @@ function scrollTo(id) {
   if (el) el.scrollIntoView({ behavior: 'smooth' })
 }
 
-onMounted(() => window.addEventListener('scroll', handleScroll))
-onUnmounted(() => window.removeEventListener('scroll', handleScroll))
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll)
+  slideInterval = setInterval(() => {
+    currentBgIndex.value = (currentBgIndex.value + 1) % bgImages.length
+  }, 2000)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll)
+  clearInterval(slideInterval)
+})
 </script>
 
 <template>
@@ -62,6 +79,14 @@ onUnmounted(() => window.removeEventListener('scroll', handleScroll))
         >
           Lokasi Studio
         </button>
+        <a
+          href="https://wa.me/6285939207396?text=Halo%20Nareswari%2C%20saya%20ingin%20konsultasi%20sewa%20kebaya"
+          target="_blank"
+          rel="noopener"
+          class="font-serif text-base font-medium text-muted transition-colors duration-300 hover:text-gold"
+        >
+          Konsultasi WA
+        </a>
       </div>
 
       <!-- CTA + Wishlist Badge -->
@@ -82,62 +107,81 @@ onUnmounted(() => window.removeEventListener('scroll', handleScroll))
 
       <!-- Mobile Hamburger -->
       <button
-        class="flex flex-col gap-1.5 md:hidden"
+        class="relative z-50 flex h-10 w-10 flex-col items-end justify-center gap-2 md:hidden"
         @click="isMobileMenuOpen = !isMobileMenuOpen"
         aria-label="Toggle menu"
       >
         <span
-          class="block h-0.5 w-6 bg-ivory transition-all duration-300"
-          :class="{ 'translate-y-2 rotate-45': isMobileMenuOpen }"
+          class="block h-[3px] rounded-full bg-ivory transition-all duration-300"
+          :class="isMobileMenuOpen ? 'w-6 translate-y-[5.5px] rotate-45' : 'w-8'"
         />
         <span
-          class="block h-0.5 w-6 bg-ivory transition-all duration-300"
-          :class="{ 'opacity-0': isMobileMenuOpen }"
-        />
-        <span
-          class="block h-0.5 w-6 bg-ivory transition-all duration-300"
-          :class="{ '-translate-y-2 -rotate-45': isMobileMenuOpen }"
+          class="block h-[3px] rounded-full bg-ivory transition-all duration-300"
+          :class="isMobileMenuOpen ? 'w-6 -translate-y-[5.5px] -rotate-45' : 'w-6'"
         />
       </button>
     </div>
 
-    <!-- Mobile Menu -->
+    <!-- Fullscreen Mobile Menu -->
     <Transition
-      enter-active-class="transition-all duration-300 ease-out"
-      leave-active-class="transition-all duration-200 ease-in"
-      enter-from-class="opacity-0 -translate-y-4"
-      leave-to-class="opacity-0 -translate-y-4"
+      enter-active-class="transition-all duration-500 ease-out"
+      leave-active-class="transition-all duration-500 ease-in"
+      enter-from-class="opacity-0"
+      leave-to-class="opacity-0"
     >
       <div
         v-if="isMobileMenuOpen"
-        class="border-b border-border-subtle bg-canvas/95 backdrop-blur-xl md:hidden"
+        class="fixed inset-0 z-40 flex flex-col items-center justify-center bg-canvas md:hidden"
       >
-        <div class="flex flex-col gap-1 px-6 py-4">
+        <!-- Background Slideshow -->
+        <div class="absolute inset-0 z-0 overflow-hidden">
+          <img
+            v-for="(img, index) in bgImages"
+            :key="img"
+            :src="img"
+            class="absolute inset-0 h-full w-full object-cover object-top blur-md transition-opacity duration-1000"
+            :class="currentBgIndex === index ? 'opacity-30' : 'opacity-0'"
+          />
+          <!-- Gradient overlay for text legibility -->
+          <div class="absolute inset-0 bg-gradient-to-t from-canvas via-canvas/80 to-canvas/80" />
+        </div>
+
+        <div class="relative z-10 flex w-full flex-col items-center gap-8 px-6">
           <button
             @click="scrollTo('katalog')"
-            class="px-4 py-3 text-left font-serif text-base font-medium text-muted transition-colors hover:text-gold"
+            class="font-serif text-3xl font-medium tracking-wide text-ivory transition-colors hover:text-gold"
           >
             Katalog
           </button>
           <button
             @click="scrollTo('cara-sewa')"
-            class="px-4 py-3 text-left font-serif text-base font-medium text-muted transition-colors hover:text-gold"
+            class="font-serif text-3xl font-medium tracking-wide text-ivory transition-colors hover:text-gold"
           >
             Cara Sewa
           </button>
           <button
             @click="scrollTo('lokasi')"
-            class="px-4 py-3 text-left font-serif text-base font-medium text-muted transition-colors hover:text-gold"
+            class="font-serif text-3xl font-medium tracking-wide text-ivory transition-colors hover:text-gold"
           >
             Lokasi Studio
           </button>
-          <div class="my-2 h-px bg-border-subtle" />
+          <a
+            href="https://wa.me/6285939207396?text=Halo%20Nareswari%2C%20saya%20ingin%20konsultasi%20sewa%20kebaya"
+            target="_blank"
+            rel="noopener"
+            class="font-serif text-3xl font-medium tracking-wide text-ivory transition-colors hover:text-gold"
+          >
+            Konsultasi WA
+          </a>
+          
+          <div class="h-px w-16 bg-gold/40" />
+          
           <button
             @click="openModal(); isMobileMenuOpen = false"
-            class="px-4 py-3 text-left font-serif text-base font-medium text-gold transition-colors hover:bg-gold/10"
+            class="font-serif text-2xl font-medium text-gold transition-colors hover:text-gold/80"
           >
             Jadwal Fitting
-            <span v-if="count > 0" class="ml-2 font-sans text-sm text-muted">({{ count }} kebaya)</span>
+            <span v-if="count > 0" class="ml-2 font-sans text-lg text-ivory">({{ count }})</span>
           </button>
         </div>
       </div>

@@ -6,8 +6,7 @@ const sectionRef = ref(null)
 const { fadeUp } = useScrollAnimations()
 
 const activeIndex = ref(0)
-const itemsRefs = ref([])
-let observer
+let slideshowInterval
 
 const pillars = [
   {
@@ -27,84 +26,90 @@ const pillars = [
   },
 ]
 
+const startSlideshow = () => {
+  if (window.innerWidth >= 768) {
+    slideshowInterval = setInterval(() => {
+      activeIndex.value = (activeIndex.value + 1) % pillars.length
+    }, 4000)
+  }
+}
+
+const stopSlideshow = () => {
+  if (slideshowInterval) {
+    clearInterval(slideshowInterval)
+  }
+}
+
+const handleMouseEnter = (i) => {
+  if (window.innerWidth >= 768) {
+    stopSlideshow()
+    activeIndex.value = i
+  }
+}
+
+const handleMouseLeave = () => {
+  if (window.innerWidth >= 768) {
+    startSlideshow()
+  }
+}
+
 onMounted(() => {
   if (sectionRef.value) {
     const items = sectionRef.value.querySelectorAll('.pillar-item')
     fadeUp(items, { stagger: 0.15 })
   }
-
-  // IntersectionObserver to auto-update active image on scroll (Desktop)
-  observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting && window.innerWidth >= 1024) {
-          activeIndex.value = Number(entry.target.dataset.index)
-        }
-      })
-    },
-    { rootMargin: '-40% 0px -40% 0px' }
-  )
-
-  // Wait a tick for refs to populate
-  setTimeout(() => {
-    itemsRefs.value.forEach((el) => {
-      if (el) observer.observe(el)
-    })
-  }, 100)
+  startSlideshow()
 })
 
 onUnmounted(() => {
-  if (observer) observer.disconnect()
+  stopSlideshow()
 })
-
-const setItemRef = (el) => {
-  if (el && !itemsRefs.value.includes(el)) {
-    itemsRefs.value.push(el)
-  }
-}
 </script>
 
 <template>
-  <section ref="sectionRef" class="bg-canvas px-6 py-20 lg:px-10 lg:py-32">
+  <section ref="sectionRef" class="bg-canvas px-6 py-20 md:px-10 md:py-32">
     <div class="mx-auto max-w-7xl">
       <!-- Header -->
-      <div class="mb-12 lg:mb-20">
+      <div class="mb-12 md:mb-20">
         <p class="text-xs font-semibold uppercase tracking-[0.3em] text-gold">
           Kenapa Memilih Kami
         </p>
-        <h2 class="mt-6 font-serif text-4xl font-semibold text-ivory lg:text-6xl">
+        <h2 class="mt-6 font-serif text-4xl font-semibold text-ivory md:text-6xl">
           Pengalaman, Bukan<br class="hidden sm:block" />
           Sekadar Gaun
         </h2>
       </div>
 
       <!-- Split Layout -->
-      <div class="grid items-start gap-8 lg:grid-cols-2 lg:gap-20 relative">
+      <div class="grid items-start gap-8 md:grid-cols-2 md:gap-12 lg:gap-20 relative">
         <!-- Left: List -->
-        <div class="flex flex-col gap-6 lg:gap-0">
+        <div class="flex flex-col gap-6 md:gap-0">
           <div
             v-for="(pillar, i) in pillars"
             :key="i"
             :data-index="i"
-            :ref="setItemRef"
-            class="pillar-item group relative flex flex-col overflow-hidden rounded-sm lg:rounded-none lg:border-b lg:border-border-subtle lg:first:border-t transition-colors duration-500 hover:border-gold/50"
-            @mouseenter="window?.innerWidth >= 1024 ? activeIndex = i : null"
+            class="pillar-item group relative flex flex-col justify-end overflow-hidden rounded-sm aspect-[4/5] sm:aspect-square md:aspect-auto md:min-h-0 md:rounded-none md:border-b md:border-border-subtle md:first:border-t transition-colors duration-500 hover:border-gold/30"
+            @mouseenter="handleMouseEnter(i)"
+            @mouseleave="handleMouseLeave"
           >
-            <!-- Vertical Indicator (Desktop Hover) -->
-            <div class="absolute left-0 top-0 hidden h-full w-0.5 bg-gold opacity-0 transition-all duration-300 group-hover:-left-6 group-hover:opacity-100 lg:block" />
+            <!-- Vertical Indicator (Desktop/Tablet Hover/Active) -->
+            <div class="absolute left-0 top-0 hidden h-full w-0.5 bg-gold transition-all duration-300 md:block"
+                 :class="activeIndex === i ? '-left-6 opacity-100' : 'opacity-0 group-hover:-left-6 group-hover:opacity-50'" />
 
-            <!-- Mobile Overlay Background (Hidden on Desktop) -->
-            <div class="absolute inset-0 block lg:hidden">
-              <img :src="pillar.img" :alt="pillar.title" class="h-full w-full object-cover" loading="lazy" />
+            <!-- Mobile Overlay Background (Hidden on Tablet/Desktop) -->
+            <div class="absolute inset-0 block md:hidden">
+              <img :src="pillar.img" :alt="pillar.title" class="h-full w-full object-cover object-top" loading="lazy" />
               <!-- Dark gradient to make text readable -->
-              <div class="absolute inset-0 bg-gradient-to-t from-canvas via-canvas/90 to-canvas/20" />
+              <div class="absolute inset-0 bg-gradient-to-t from-canvas via-canvas/80 to-canvas/10" />
             </div>
 
-            <div class="relative z-10 px-6 pb-8 pt-48 lg:px-0 lg:py-12">
-              <h3 class="font-serif text-2xl font-semibold text-ivory transition-colors duration-300 group-hover:text-gold lg:text-3xl">
+            <div class="relative z-10 p-6 md:px-0 md:py-10 lg:py-12">
+              <h3 class="font-serif text-2xl font-semibold transition-colors duration-300 md:text-3xl"
+                  :class="activeIndex === i ? 'text-gold' : 'text-ivory group-hover:text-gold/80'">
                 {{ pillar.title }}
               </h3>
-              <p class="mt-4 text-base leading-relaxed text-muted lg:text-lg">
+              <p class="mt-4 text-base leading-relaxed transition-colors duration-300 md:text-lg"
+                 :class="activeIndex === i ? 'text-ivory' : 'text-muted'">
                 {{ pillar.desc }}
               </p>
             </div>
@@ -112,7 +117,7 @@ const setItemRef = (el) => {
         </div>
 
         <!-- Right: Sticky Image Gallery (Hidden on Mobile) -->
-        <div class="hidden lg:block relative">
+        <div class="hidden md:block relative">
           <div class="sticky top-32 aspect-[3/4] w-full overflow-hidden rounded-sm border border-border-subtle bg-surface shadow-card">
             <!-- Render all images, use CSS opacity to toggle them smoothly -->
             <img
@@ -120,7 +125,7 @@ const setItemRef = (el) => {
               :key="i"
               :src="pillar.img"
               :alt="pillar.title"
-              class="absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-in-out"
+              class="absolute inset-0 h-full w-full object-cover object-top transition-opacity duration-700 ease-in-out"
               :class="activeIndex === i ? 'opacity-100' : 'opacity-0'"
               loading="lazy"
             />

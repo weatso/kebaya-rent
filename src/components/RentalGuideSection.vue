@@ -40,18 +40,18 @@ const activeIndex = ref(0)
     </div>
 
     <!-- Accordion Fullscreen -->
-    <div class="flex min-h-[80vh] w-full flex-col lg:h-screen lg:flex-row">
+    <div class="flex min-h-[85vh] w-full flex-col lg:h-screen lg:flex-row">
       <div
         v-for="(step, i) in steps"
         :key="i"
         class="group relative flex cursor-pointer flex-col overflow-hidden transition-all duration-700 ease-out lg:flex-row"
-        :class="activeIndex === i ? 'flex-[2.5] lg:flex-[3]' : 'flex-[1]'"
+        :class="activeIndex === i ? 'flex-[3] lg:flex-[3]' : 'flex-[1] lg:flex-[1]'"
         @mouseenter="activeIndex = i"
         @click="activeIndex = i"
       >
         <!-- Background Image -->
         <div class="absolute inset-0">
-          <img :src="step.img" class="h-full w-full object-cover transition-transform duration-1000" :class="activeIndex === i ? 'scale-105' : 'scale-100 grayscale-[50%]'" loading="lazy" />
+          <img :src="step.img" class="h-full w-full object-cover object-top transition-transform duration-1000 ease-out" :class="activeIndex === i ? 'scale-100' : 'scale-110 grayscale-[30%]'" loading="lazy" />
           <div class="absolute inset-0 bg-canvas/80 transition-colors duration-500" :class="activeIndex === i ? 'bg-canvas/40 lg:bg-gradient-to-t lg:from-canvas lg:via-canvas/60 lg:to-transparent' : 'bg-canvas/80'" />
         </div>
 
@@ -62,8 +62,8 @@ const activeIndex = ref(0)
             <h3 class="font-serif text-2xl font-semibold text-ivory lg:text-3xl" :class="activeIndex === i ? 'text-ivory' : 'text-ivory/60 lg:-rotate-90 lg:origin-left lg:translate-y-12 lg:whitespace-nowrap lg:opacity-0 hidden lg:block lg:absolute left-10 bottom-24'">
               {{ step.title }}
             </h3>
-            <!-- Show title normally on mobile or active desktop -->
-            <h3 class="font-serif text-2xl font-semibold text-ivory lg:text-3xl lg:hidden" :class="activeIndex === i ? 'block' : 'block'">
+            <!-- Show title normally on mobile -->
+            <h3 class="font-serif text-2xl font-semibold text-ivory lg:hidden block">
               {{ step.title }}
             </h3>
             <h3 class="font-serif text-2xl font-semibold text-ivory hidden lg:block lg:text-3xl" v-show="activeIndex === i">
@@ -71,10 +71,14 @@ const activeIndex = ref(0)
             </h3>
           </div>
           
-          <!-- Description (Only visible when active) -->
-          <div class="grid transition-all duration-500 grid-rows-[0fr] opacity-0" :class="activeIndex === i ? 'grid-rows-[1fr] opacity-100 mt-4' : ''">
+          <!-- Description (Zoomout transition instead of slide) -->
+          <div class="transition-all duration-500 ease-out origin-top" :class="activeIndex === i ? 'mt-4 scale-100 opacity-100 h-auto' : 'scale-95 opacity-0 h-0 overflow-hidden lg:h-auto lg:overflow-visible lg:opacity-0 lg:scale-100 lg:mt-0'">
             <div class="overflow-hidden">
-              <p class="max-w-md text-base leading-relaxed text-ivory/90 shadow-black drop-shadow-md">
+              <p class="max-w-md text-base leading-relaxed text-ivory/90 shadow-black drop-shadow-md lg:hidden">
+                {{ step.desc }}
+              </p>
+              <!-- Keep desktop description behavior normal -->
+              <p class="max-w-md text-base leading-relaxed text-ivory/90 shadow-black drop-shadow-md hidden lg:block" v-show="activeIndex === i">
                 {{ step.desc }}
               </p>
             </div>

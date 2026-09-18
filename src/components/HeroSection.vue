@@ -61,17 +61,7 @@ onMounted(() => {
 
     <!-- Content -->
     <div class="relative z-10 mx-auto max-w-5xl px-6 py-32 text-center lg:px-10">
-      <!-- Eyebrow -->
-      <p class="hero-animate text-xs font-semibold uppercase tracking-[0.35em] text-gold lg:text-sm">
-        Koleksi Sewa Kebaya Semarang
-      </p>
 
-      <!-- Gold Ornament Line -->
-      <div class="hero-animate mx-auto mt-6 flex items-center justify-center gap-3">
-        <div class="h-px w-10 bg-gradient-to-r from-transparent to-gold-dim" />
-        <svg class="h-1.5 w-1.5 text-gold" viewBox="0 0 6 6" fill="currentColor"><rect x="3" y="0" width="4.24" height="4.24" rx="0.3" transform="rotate(45 3 3)" /></svg>
-        <div class="h-px w-10 bg-gradient-to-l from-transparent to-gold-dim" />
-      </div>
 
       <!-- Headline with Shimmer -->
       <h1 class="hero-animate mt-8 font-serif text-5xl font-bold leading-[1.1] tracking-tight sm:text-6xl lg:text-7xl xl:text-8xl">
@@ -86,32 +76,16 @@ onMounted(() => {
         personal di studio Semarang.
       </p>
 
-      <!-- Actions -->
-      <div class="hero-animate mt-10 flex flex-wrap items-center justify-center gap-4 lg:mt-12">
-        <button
-          @click="scrollTo('katalog')"
-          class="bg-gold px-10 py-4 font-serif text-base font-semibold uppercase tracking-wider text-canvas transition-all duration-300 hover:bg-gold/90 hover:shadow-gold"
-        >
-          Lihat Katalog
-        </button>
-        <a
-          href="https://wa.me/6285939207396?text=Halo%20Nareswari%2C%20saya%20ingin%20konsultasi%20sewa%20kebaya"
-          target="_blank"
-          rel="noopener"
-          class="border border-ivory/20 px-10 py-4 font-serif text-base font-semibold uppercase tracking-wider text-ivory transition-all duration-300 hover:border-gold hover:text-gold"
-        >
-          Konsultasi WA
-        </a>
-      </div>
+
     </div>
 
     <!-- Scroll Indicator -->
     <div class="scroll-indicator absolute bottom-8 left-1/2 -translate-x-1/2">
       <div class="flex flex-col items-center gap-2">
         <span class="text-[10px] uppercase tracking-[0.2em] text-muted/60">Scroll</span>
-        <div class="relative h-8 w-4 rounded-full border border-muted/30">
-          <div class="absolute left-1/2 top-1.5 h-2 w-0.5 -translate-x-1/2 animate-bounce rounded-full bg-gold" />
-        </div>
+        <svg class="mt-1 h-5 w-5 animate-bounce text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 9l-7 7-7-7"></path>
+        </svg>
       </div>
     </div>
 
