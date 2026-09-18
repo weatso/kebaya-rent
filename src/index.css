@@ -1,0 +1,113 @@
+@import "tailwindcss";
+
+/* ============================================
+   NARESWARI · PREMIUM KEBAYA
+   Design System — Dark Keraton Aristocratic
+   ============================================ */
+
+@theme {
+  /* ── Dark Keraton Palette ── */
+  --color-canvas: #0F0C08;
+  --color-surface: #1A1714;
+  --color-surface-alt: #242019;
+  --color-ivory: #F5F0E8;
+  --color-muted: #D8D2C4;
+  --color-gold: #C9A84C;
+  --color-gold-dim: #8B7035;
+  --color-border-subtle: #2E2923;
+  --color-border-gold: oklch(0.65 0.12 75 / 0.2);
+
+  /* ── Typography ── */
+  --font-serif: "Bodoni Moda", "Didot", "Georgia", serif;
+  --font-sans: "Plus Jakarta Sans", "Segoe UI", sans-serif;
+
+  /* ── Shadows (dark theme adapted) ── */
+  --shadow-card: 0 2px 24px rgba(0, 0, 0, 0.3);
+  --shadow-elevated: 0 12px 48px rgba(0, 0, 0, 0.5);
+  --shadow-gold: 0 4px 30px rgba(201, 168, 76, 0.15);
+}
+
+/* ── Base Styles ── */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-canvas);
+  color: var(--color-ivory);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ── Scrollbar (Dark) ── */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-canvas);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-subtle);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gold-dim);
+}
+
+/* ── Selection ── */
+::selection {
+  background: var(--color-gold);
+  color: var(--color-canvas);
+}
+
+/* ── Gold Shimmer Gradient for Text ── */
+.text-shimmer {
+  background: linear-gradient(
+    110deg,
+    var(--color-gold) 0%,
+    #E8D48B 25%,
+    var(--color-gold) 50%,
+    #E8D48B 75%,
+    var(--color-gold) 100%
+  );
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 4s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 100% 0; }
+  50% { background-position: 0% 0; }
+  100% { background-position: 100% 0; }
+}
+
+/* ── Map Filter (Dark Theme) ── */
+.map-dark {
+  filter: invert(92%) hue-rotate(180deg) brightness(0.8) contrast(0.9);
+  transition: filter 0.5s ease;
+}
+
+.map-dark:hover {
+  filter: invert(92%) hue-rotate(180deg) brightness(0.9) contrast(1);
+}
+
+/* ── Horizontal Scroll (hide scrollbar) ── */
+.scroll-hidden::-webkit-scrollbar {
+  display: none;
+}
+.scroll-hidden {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ── Gold line ornament base ── */
+.gold-line {
+  background: linear-gradient(90deg, transparent, var(--color-gold-dim), transparent);
+}

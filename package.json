@@ -1,0 +1,27 @@
+{
+  "name": "kebaya-rent",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "gsap": "^3.15.0",
+    "lenis": "^1.3.26",
+    "tailwindcss": "^4.3.3",
+    "vue": "^3.5.42"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.8",
+    "ffmpeg-static": "^5.3.0",
+    "sharp": "^0.35.4",
+    "vite": "^8.3.0"
+  },
+  "allowScripts": {
+    "ffmpeg-static@5.3.0": true
+  }
+}
