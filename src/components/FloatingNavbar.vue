@@ -8,9 +8,9 @@ const isScrolled = ref(false)
 const isMobileMenuOpen = ref(false)
 
 const bgImages = [
-  '/Assets/DSC09652.avif',
-  '/Assets/DSC09689.avif',
-  '/Assets/DSC09710.avif'
+  '/media/DSC09652.avif',
+  '/media/DSC09689.avif',
+  '/media/DSC09710.avif'
 ]
 const currentBgIndex = ref(0)
 let slideInterval

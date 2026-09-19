@@ -12,17 +12,17 @@ const pillars = [
   {
     title: 'Keahlian Tradisi',
     desc: 'Setiap kebaya dipilih dengan standar kualitas tinggi — detail payet, bordiran, dan kain premium yang memancarkan keanggunan autentik Jawa.',
-    img: '/Assets/1.avif',
+    img: '/media/1.avif',
   },
   {
     title: 'Higienis & Steril',
     desc: 'Setiap gaun melewati proses laundry profesional dan sterilisasi setelah pemakaian. Kami tidak mengizinkan pencucian mandiri demi kualitas.',
-    img: '/Assets/4.avif',
+    img: '/media/4.avif',
   },
   {
     title: 'Fitting Personal',
     desc: 'Nikmati sesi fitting eksklusif 30 menit di studio kami. Konsultasi langsung untuk memastikan kebaya Anda sempurna di hari istimewa.',
-    img: '/Assets/9.avif',
+    img: '/media/9.avif',
   },
 ]
 

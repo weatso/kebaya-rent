@@ -6,25 +6,25 @@ const steps = [
     num: '01',
     title: 'Pilih & Wishlist',
     desc: 'Jelajahi katalog eksklusif kami dan pilih hingga 3 kebaya favorit Anda. Simpan ke daftar fitting secara online dengan mudah, tanpa perlu datang terlebih dahulu.',
-    img: '/Assets/1.avif'
+    img: '/media/1.avif'
   },
   {
     num: '02',
     title: 'Fitting di Studio',
     desc: 'Kunjungi studio Nareswari untuk sesi fitting personal selama ±30 menit. DP reservasi Rp 50.000 (memotong harga sewa). Konsultasikan gaya Anda langsung.',
-    img: '/Assets/4.avif'
+    img: '/media/4.avif'
   },
   {
     num: '03',
     title: 'Pengambilan & Jaminan',
     desc: 'Ambil kebaya H-1 sebelum hari acara Anda. Pelunasan sisa sewa dilakukan saat pengambilan dengan menyertakan KTP/SIM asli sebagai jaminan keamanan.',
-    img: '/Assets/6.avif'
+    img: '/media/6.avif'
   },
   {
     num: '04',
     title: 'Pengembalian & Laundry',
     desc: 'Kembalikan kebaya maksimal H+1 setelah acara (pukul 15.00 WIB). Laundry profesional sudah termasuk harga sewa. Dilarang mencuci mandiri untuk menjaga kualitas gaun.',
-    img: '/Assets/9.avif'
+    img: '/media/9.avif'
   },
 ]
 

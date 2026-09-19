@@ -47,7 +47,7 @@ onMounted(() => {
       playsinline
       class="absolute inset-0 h-full w-full object-cover"
     >
-      <source src="/Assets/hero-video.webm" type="video/webm" />
+      <source src="/media/hero-video.webm" type="video/webm" />
     </video>
 
     <!-- Dark Gradient Overlay (hides AI artifacts) -->
