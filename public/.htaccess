@@ -1,0 +1,22 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # 1. Lewatkan request API agar diproses PHP
+  RewriteCond %{REQUEST_URI} ^/api [NC]
+  RewriteRule ^ - [L]
+
+  # 2. Lewatkan jika file atau folder fisik memang ada
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # 3. Lempar rute SPA ke index.html
+  RewriteRule . /index.html [L]
+</IfModule>
+
+# Keamanan: Blokir akses luar langsung ke file konfigurasi DB
+<Files "db.php">
+  Order Allow,Deny
+  Deny from all
+</Files>
