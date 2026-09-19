@@ -58,7 +58,13 @@ async function handleSubmit() {
     eventDate: payload.event_date, fittingDate: payload.fitting_date, fittingTime: payload.fitting_time,
   })
 
-  window.open(waLink, '_blank')
+  const isMobile = typeof navigator !== 'undefined' && /Android|iPhone|iPad|iPod/i.test(navigator.userAgent)
+  if (isMobile) {
+    window.location.href = waLink
+  } else {
+    window.open(waLink, '_blank')
+  }
+
   isSubmitting.value = false
   form.value = { name: '', whatsapp: '', eventDate: '', fittingDate: '', fittingTime: '10:00' }
   clearAll()
@@ -99,6 +105,7 @@ watch(isModalOpen, (val) => {
         >
           <div
             v-if="isModalOpen"
+            data-lenis-prevent
             class="relative max-h-[90vh] w-full overflow-y-auto rounded-t-md border border-border-subtle bg-surface p-6 shadow-elevated sm:max-w-lg sm:rounded-md sm:p-8"
           >
             <!-- Close -->

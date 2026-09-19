@@ -64,6 +64,7 @@ function formatPrice(price) {
 }
 
 function toggleFitting(kebaya) {
+  if (hasDragged) return
   if (hasItem(kebaya.id)) {
     removeItem(kebaya.id)
   } else {
@@ -76,27 +77,34 @@ function toggleFitting(kebaya) {
 
 // Horizontal scroll drag
 let isDragging = false
+let hasDragged = false
 let startX = 0
 let scrollLeft = 0
 
 function onMouseDown(e) {
   isDragging = true
+  hasDragged = false
   startX = e.pageX - scrollContainerRef.value.offsetLeft
   scrollLeft = scrollContainerRef.value.scrollLeft
   scrollContainerRef.value.style.cursor = 'grabbing'
+  scrollContainerRef.value.style.scrollSnapType = 'none'
 }
 
 function onMouseMove(e) {
   if (!isDragging) return
   e.preventDefault()
   const x = e.pageX - scrollContainerRef.value.offsetLeft
+  if (Math.abs(x - startX) > 6) hasDragged = true
   const walk = (x - startX) * 1.5
   scrollContainerRef.value.scrollLeft = scrollLeft - walk
 }
 
 function onMouseUp() {
   isDragging = false
-  if (scrollContainerRef.value) scrollContainerRef.value.style.cursor = 'grab'
+  if (scrollContainerRef.value) {
+    scrollContainerRef.value.style.cursor = 'grab'
+    scrollContainerRef.value.style.scrollSnapType = 'x mandatory'
+  }
 }
 
 function scrollGallery(direction) {
@@ -109,11 +117,7 @@ function scrollGallery(direction) {
 async function fetchKebayas() {
   isLoading.value = true
   try {
-    const params = new URLSearchParams()
-    if (activeCategory.value !== 'semua') params.set('category', activeCategory.value)
-    if (activeLd.value !== 'semua') params.set('ld', activeLd.value)
-    if (searchQuery.value) params.set('search', searchQuery.value)
-    const res = await fetch(`/api/kebaya.php?${params.toString()}`)
+    const res = await fetch('/api/kebaya.php')
     if (!res.ok) throw new Error('API error')
     kebayas.value = await res.json()
   } catch {
