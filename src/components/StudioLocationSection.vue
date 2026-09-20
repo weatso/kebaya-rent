@@ -57,8 +57,7 @@ onMounted(() => {
               <div>
                 <h3 class="font-serif text-lg font-semibold text-ivory">Customer Service</h3>
                 <a
-                  href="https://wa.me/6285939207396?text=Halo%20Nareswari%2C%20saya%20ingin%20bertanya%20tentang%20sewa%20kebaya"
-                  target="_blank" rel="noopener"
+                  href="#"
                   class="mt-2 inline-flex items-center gap-2 bg-gold px-5 py-2.5 font-serif text-base font-medium text-canvas transition-all duration-300 hover:bg-gold/90 hover:shadow-gold"
                 >
                   <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654z"/></svg>
@@ -71,14 +70,20 @@ onMounted(() => {
 
         <!-- Map -->
         <div ref="mapRef" class="relative">
-          <div class="map-dark overflow-hidden rounded-md border border-border-subtle shadow-card">
+          <!-- Premium Decorative Frame -->
+          <div class="pointer-events-none absolute -left-3 -top-3 z-10 h-16 w-16 rounded-tl-xl border-l-2 border-t-2 border-gold/60 opacity-80 transition-all duration-500 hover:scale-110" />
+          <div class="pointer-events-none absolute -bottom-3 -right-3 z-10 h-16 w-16 rounded-br-xl border-b-2 border-r-2 border-gold/60 opacity-80 transition-all duration-500 hover:scale-110" />
+          <div class="pointer-events-none absolute -right-3 -top-3 z-10 h-8 w-8 border-r border-t border-gold/30" />
+          <div class="pointer-events-none absolute -bottom-3 -left-3 z-10 h-8 w-8 border-b border-l border-gold/30" />
+          
+          <div class="map-dark relative z-0 overflow-hidden rounded-md border border-gold/20 shadow-[0_0_30px_rgba(201,168,76,0.1)] p-1 bg-surface-alt">
             <iframe
               :src="mapSrc" width="100%" height="400" style="border: 0;"
+              class="rounded-sm"
               allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
               title="Lokasi Studio Nareswari Semarang"
             />
           </div>
-          <div class="pointer-events-none absolute -bottom-3 -right-3 h-20 w-20 border-b border-r border-gold/10" />
         </div>
       </div>
     </div>

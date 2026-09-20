@@ -103,7 +103,7 @@ onUnmounted(() => {
               <div class="absolute inset-0 bg-gradient-to-t from-canvas via-canvas/80 to-canvas/10" />
             </div>
 
-            <div class="relative z-10 p-6 md:px-0 md:py-10 lg:py-12">
+            <div class="relative z-10 p-6 md:pl-10 md:pr-0 md:py-10 lg:py-12">
               <h3 class="font-serif text-2xl font-semibold transition-colors duration-300 md:text-3xl"
                   :class="activeIndex === i ? 'text-gold' : 'text-ivory group-hover:text-gold/80'">
                 {{ pillar.title }}

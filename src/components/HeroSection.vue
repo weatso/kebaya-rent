@@ -45,6 +45,7 @@ onMounted(() => {
       muted
       loop
       playsinline
+      preload="auto"
       class="absolute inset-0 h-full w-full object-cover"
     >
       <source src="/media/hero-video.webm" type="video/webm" />
